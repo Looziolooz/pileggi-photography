@@ -3,6 +3,7 @@ import { GalleryGrid } from '@/components/GalleryGrid'
 import { Testimonials } from '@/components/Testimonials'
 import { GALLERY_IMAGES, TESTIMONIALS } from '@/lib/images'
 import Image from 'next/image'
+import Link from 'next/link' // 1. Import necessario
 
 export default function Home() {
   const featuredImages = GALLERY_IMAGES.slice(0, 6)
@@ -48,7 +49,13 @@ export default function Home() {
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="font-serif text-4xl sm:text-5xl mb-6">Pronto a catturare il tuo momento?</h2>
           <p className="font-sans text-lg mb-8 text-gray-300">Contattami per una consulenza gratuita e scopri come posso raccontare la tua storia.</p>
-          <a href="/contact" className="inline-block px-8 py-3 border border-white text-white font-sans text-sm uppercase tracking-widest hover:bg-white hover:text-charcoal transition-all duration-300">Iniziamo</a>
+          {/* 2. Sostituito <a> con <Link> */}
+          <Link 
+            href="/contact" 
+            className="inline-block px-8 py-3 border border-white text-white font-sans text-sm uppercase tracking-widest hover:bg-white hover:text-charcoal transition-all duration-300"
+          >
+            Iniziamo
+          </Link>
         </div>
       </section>
     </main>
