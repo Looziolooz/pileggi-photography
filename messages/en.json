@@ -1,0 +1,17 @@
+{
+  "Nav": {
+    "portfolio": "Portfolio",
+    "about": "About Me",
+    "contact": "Contact"
+  },
+  "Portfolio": {
+    "title": "Portfolio",
+    "subtitle": "A selection of my most significant works"
+  },
+  "Services": {
+    "weddings": "Weddings",
+    "portraits": "Portraits",
+    "events": "Events",
+    "commercial": "Commercial"
+  }
+}

@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { NAV_ITEMS, type NavItem } from '@/lib/constants'
+import { LanguageSwitcher } from './LanguageSwitcher'
 
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -62,6 +63,11 @@ export function Navigation() {
               {item.label}
             </Link>
           ))}
+          
+          {/* Language Switcher Desktop */}
+          <div className="ml-4 border-l border-gray-200 pl-4">
+            <LanguageSwitcher />
+          </div>
         </div>
 
         {/* Mobile Menu Button */}
@@ -119,6 +125,12 @@ export function Navigation() {
               {item.label}
             </Link>
           ))}
+          
+          {/* Language Switcher Mobile */}
+          <div className="px-4 py-4 border-t border-gray-100 flex justify-between items-center">
+            <span className="text-xs font-sans uppercase tracking-widest text-warmGray">Lingua</span>
+            <LanguageSwitcher />
+          </div>
         </motion.div>
       )}
     </motion.nav>

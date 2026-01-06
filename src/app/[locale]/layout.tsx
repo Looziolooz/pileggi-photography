@@ -3,7 +3,9 @@ import { Inter, Playfair_Display } from 'next/font/google'
 import { Navigation } from '@/components/Navigation'
 import { Footer } from '@/components/Footer'
 import Script from 'next/script'
-import './globals.css'
+import { NextIntlClientProvider } from 'next-intl'
+import { getMessages } from 'next-intl/server'
+import '../globals.css'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -41,7 +43,8 @@ export const metadata: Metadata = {
   
   openGraph: {
     type: 'website',
-    locale: 'it_IT',
+    // Nota: Il locale qui è statico, idealmente dovrebbe essere dinamico in base alla lingua corrente
+    locale: 'it_IT', 
     url: '/',
     title: 'Antonio Pileggi - Fotografo Matrimoni e Ritratti',
     description: 'Fotografia di matrimoni, ritratti e eventi con stile minimalista e vintage.',
@@ -80,15 +83,23 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
+  params
 }: {
   children: React.ReactNode
+  params: Promise<{ locale: string }>
 }) {
   const gaId = process.env.NEXT_PUBLIC_GA_ID
+  
+  // Attende i parametri (richiesto in Next.js 15+)
+  const { locale } = await params
+  
+  // Recupera i messaggi di traduzione lato server
+  const messages = await getMessages()
 
   return (
-    <html lang="it" className={`${inter.variable} ${playfair.variable}`} suppressHydrationWarning>
+    <html lang={locale} className={`${inter.variable} ${playfair.variable}`} suppressHydrationWarning>
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -100,21 +111,23 @@ export default function RootLayout({
         className="bg-cream text-charcoal font-sans antialiased"
         suppressHydrationWarning
       >
-        {/* Skip to main content per accessibilità */}
-        <a 
-          href="#main-content" 
-          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-charcoal focus:text-white"
-        >
-          Salta al contenuto principale
-        </a>
-        
-        <Navigation />
-        
-        <main id="main-content">
-          {children}
-        </main>
-        
-        <Footer />
+        <NextIntlClientProvider messages={messages}>
+          {/* Skip to main content per accessibilità */}
+          <a 
+            href="#main-content" 
+            className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-charcoal focus:text-white"
+          >
+            Salta al contenuto principale
+          </a>
+          
+          <Navigation />
+          
+          <main id="main-content">
+            {children}
+          </main>
+          
+          <Footer />
+        </NextIntlClientProvider>
 
         {/* Google Analytics */}
         {gaId && (

@@ -1,4 +1,12 @@
-import type { NextConfig } from 'next'
+import withNextIntl from 'next-intl/plugin';
+import type { NextConfig } from 'next';
+
+/**
+ * Configurazione per next-intl.
+ * Carica le impostazioni da src/i18n.ts per gestire le traduzioni
+ * di Italiano, Inglese e Svedese.
+ */
+const withNextIntlConfig = withNextIntl('./src/i18n.ts');
 
 const nextConfig: NextConfig = {
   // Configurazione immagini remote
@@ -20,8 +28,6 @@ const nextConfig: NextConfig = {
   compress: true,
   poweredByHeader: false,
   reactStrictMode: true,
-  
-  // ✅ RIMOSSO swcMinify (deprecato in Next.js 13+, ora è default)
 
   // Headers di sicurezza
   async headers() {
@@ -55,8 +61,9 @@ const nextConfig: NextConfig = {
           },
         ],
       },
-    ]
+    ];
   },
-}
+};
 
-export default nextConfig
+// Esporta la configurazione avvolta dal plugin i18n
+export default withNextIntlConfig(nextConfig);

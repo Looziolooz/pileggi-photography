@@ -1,0 +1,17 @@
+{
+  "Nav": {
+    "portfolio": "Portfolio",
+    "about": "Chi Sono",
+    "contact": "Contatti"
+  },
+  "Portfolio": {
+    "title": "Portfolio",
+    "subtitle": "Una selezione dei miei lavori più significativi"
+  },
+  "Services": {
+    "weddings": "Matrimoni",
+    "portraits": "Ritratti",
+    "events": "Eventi",
+    "commercial": "Commerciale"
+  }
+}

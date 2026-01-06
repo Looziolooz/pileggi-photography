@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    // Configurazione base
     "target": "ES2020",
     "lib": [
       "ES2020",
@@ -9,32 +8,25 @@
     ],
     "module": "ESNext",
     "jsx": "react-jsx",
-    // Strict mode
     "strict": true,
     "noEmit": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    // Module resolution
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "allowImportingTsExtensions": true,
     "allowJs": true,
-    // Path aliases - IMPORTANTE PER @/ import
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./src/*"
-      ]
+      "@/*": ["./src/*"]
     },
-    // Next.js plugin
     "plugins": [
       {
         "name": "next"
       }
     ],
-    // Incremental compilation
     "incremental": true,
     "useDefineForClassFields": true,
     "allowSyntheticDefaultImports": true
