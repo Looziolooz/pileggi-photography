@@ -1,37 +1,43 @@
 {
   "compilerOptions": {
-    "allowJs": true,
-    "isolatedModules": true,
-    "jsx": "react-jsx",
-    "incremental": true,
+    // Configurazione base
     "target": "ES2020",
-    "useDefineForClassFields": true,
     "lib": [
       "ES2020",
       "DOM",
       "DOM.Iterable"
     ],
     "module": "ESNext",
-    "skipLibCheck": true,
+    "jsx": "react-jsx",
+    // Strict mode
     "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true,
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
     "noEmit": true,
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    // Module resolution
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "allowImportingTsExtensions": true,
+    "allowJs": true,
+    // Path aliases - IMPORTANTE PER @/ import
     "baseUrl": ".",
     "paths": {
       "@/*": [
         "./src/*"
       ]
     },
+    // Next.js plugin
     "plugins": [
       {
         "name": "next"
       }
-    ]
+    ],
+    // Incremental compilation
+    "incremental": true,
+    "useDefineForClassFields": true,
+    "allowSyntheticDefaultImports": true
   },
   "include": [
     "next-env.d.ts",

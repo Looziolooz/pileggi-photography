@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
+import { NAV_ITEMS, type NavItem } from '@/lib/constants'
 
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -17,11 +18,17 @@ export function Navigation() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const navItems = [
-    { label: 'Portfolio', href: '/portfolio' },
-    { label: 'Chi Sono', href: '/about' },
-    { label: 'Contatti', href: '/contact' },
-  ]
+  // Chiudi menu quando si preme Escape
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isMobileMenuOpen) {
+        setIsMobileMenuOpen(false)
+      }
+    }
+
+    document.addEventListener('keydown', handleEscape)
+    return () => document.removeEventListener('keydown', handleEscape)
+  }, [isMobileMenuOpen])
 
   return (
     <motion.nav
@@ -31,55 +38,83 @@ export function Navigation() {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6 }}
+      role="navigation"
+      aria-label="Navigazione principale"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+        {/* Logo */}
         <Link
           href="/"
-          className="font-serif text-2xl font-light text-charcoal hover:text-sepia transition-colors"
+          className="font-serif text-2xl font-light text-charcoal hover:text-sepia transition-colors focus:outline-none focus:ring-2 focus:ring-sepia focus:ring-offset-2 rounded"
+          aria-label="Antonio Pileggi - Torna alla home"
         >
           AP
         </Link>
 
+        {/* Desktop Menu */}
         <div className="hidden md:flex items-center gap-8">
-          {navItems.map((item) => (
+          {NAV_ITEMS.map((item: NavItem) => (
             <Link
               key={item.href}
               href={item.href}
-              className="font-sans text-sm uppercase tracking-widest text-charcoal hover:text-sepia transition-colors duration-300"
+              className="font-sans text-sm uppercase tracking-widest text-charcoal hover:text-sepia transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-sepia focus:ring-offset-2 rounded"
             >
               {item.label}
             </Link>
           ))}
         </div>
 
+        {/* Mobile Menu Button */}
         <button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="md:hidden text-charcoal"
+          className="md:hidden text-charcoal p-2 focus:outline-none focus:ring-2 focus:ring-sepia rounded"
+          aria-label={isMobileMenuOpen ? "Chiudi menu" : "Apri menu"}
+          aria-expanded={isMobileMenuOpen}
+          aria-controls="mobile-menu"
         >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M4 6h16M4 12h16M4 18h16"
-            />
+          <svg 
+            className="w-6 h-6" 
+            fill="none" 
+            stroke="currentColor" 
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            {isMobileMenuOpen ? (
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
+            ) : (
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            )}
           </svg>
         </button>
       </div>
 
+      {/* Mobile Menu */}
       {isMobileMenuOpen && (
         <motion.div
+          id="mobile-menu"
           className="md:hidden bg-white border-t border-gray-200"
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: 'auto' }}
           exit={{ opacity: 0, height: 0 }}
+          role="menu"
         >
-          {navItems.map((item) => (
+          {NAV_ITEMS.map((item: NavItem) => (
             <Link
               key={item.href}
               href={item.href}
-              className="block px-4 py-3 font-sans text-sm uppercase tracking-widest text-charcoal hover:bg-cream transition-colors"
+              className="block px-4 py-3 font-sans text-sm uppercase tracking-widest text-charcoal hover:bg-cream transition-colors focus:outline-none focus:bg-cream focus:ring-2 focus:ring-inset focus:ring-sepia"
               onClick={() => setIsMobileMenuOpen(false)}
+              role="menuitem"
             >
               {item.label}
             </Link>

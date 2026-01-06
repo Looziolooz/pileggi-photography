@@ -35,7 +35,11 @@ export function GalleryGrid({ images }: GalleryGridProps) {
   }
 
   return (
-    <section ref={ref} className="w-full py-20 px-4 sm:px-6 lg:px-8 bg-cream">
+    <section 
+      ref={ref} 
+      className="w-full py-20 px-4 sm:px-6 lg:px-8 bg-cream"
+      aria-label="Galleria fotografica"
+    >
       <motion.div
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-max max-w-7xl mx-auto"
         variants={containerVariants}
