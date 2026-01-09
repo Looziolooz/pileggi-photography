@@ -1,4 +1,3 @@
-import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import FeaturedGallery from "@/components/FeaturedGallery";
 import Footer from "@/components/Footer";
@@ -6,7 +5,8 @@ import Footer from "@/components/Footer";
 export default function Home() {
   return (
     <main className="min-h-screen bg-stone-50 selection:bg-stone-200 selection:text-stone-900">
-      <Header />
+      {/* Navigation is now handled globally in layout.tsx */}
+      
       <Hero />
       
       {/* Philosophy Section */}
