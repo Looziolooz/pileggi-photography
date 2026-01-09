@@ -27,13 +27,14 @@ export default function About() {
           </div>
           
           <div className="pt-4">
-             <Image 
-               src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Signature_sample.svg/1200px-Signature_sample.svg.png" 
-               alt="Signature" 
-               width={150} 
-               height={50} 
-               className="opacity-50" 
-             />
+            <Image 
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Signature_sample.svg/1200px-Signature_sample.svg.png" 
+                alt="Signature" 
+                width={150} 
+                height={50} 
+                className="opacity-50"
+                unoptimized // Forza il caricamento diretto senza passare per il processore di Next.js
+              />
           </div>
         </div>
       </div>
